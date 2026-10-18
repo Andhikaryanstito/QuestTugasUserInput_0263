@@ -210,6 +210,19 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                         }
                     }
                 }
+
+                Spacer(modifier = Modifier.height(18.dp))
+
+                // Judul Bagian Skill
+                Text(
+                    text = stringResource(id = R.string.title_skills),
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = colorResource(id = R.color.text_primary),
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }
