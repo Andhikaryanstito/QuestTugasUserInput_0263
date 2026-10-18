@@ -1,6 +1,7 @@
 package com.example.questtugasuserinput_0263
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +15,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -152,6 +156,56 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Input Experience (Dropdown Menu)
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    OutlinedTextField(
+                        value = experience,
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text(text = stringResource(id = R.string.label_experience)) },
+                        shape = RoundedCornerShape(16.dp),
+                        trailingIcon = {
+                            IconButton(onClick = { isExpDropdownExpanded = !isExpDropdownExpanded }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_dropdown),
+                                    contentDescription = stringResource(id = R.string.content_desc_dropdown),
+                                    tint = colorResource(id = R.color.text_primary)
+                                )
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    // Area klik transparan di atas TextField
+                    Box(
+                        modifier = Modifier
+                            .matchParentSize()
+                            .clickable { isExpDropdownExpanded = !isExpDropdownExpanded }
+                    )
+
+                    DropdownMenu(
+                        expanded = isExpDropdownExpanded,
+                        onDismissRequest = { isExpDropdownExpanded = false }
+                    ) {
+                        val options = listOf(
+                            stringResource(id = R.string.exp_beginner),
+                            stringResource(id = R.string.exp_intermediate),
+                            stringResource(id = R.string.exp_advanced)
+                        )
+                        options.forEach { option ->
+                            DropdownMenuItem(
+                                text = { Text(text = option) },
+                                onClick = {
+                                    experience = option
+                                    isExpDropdownExpanded = false
+                                }
+                            )
+                        }
+                    }
+                }
             }
         }
     }
