@@ -6,7 +6,7 @@ plugins {
 android {
     namespace = "com.example.questtugasuserinput_0263"
     compileSdk {
-        version = release(36) {
+        version = release(37) {
             minorApiLevel = 1
         }
     }
