@@ -140,69 +140,73 @@ fun FormBiodata(modifier: Modifier = Modifier) {
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                // Input Tanggal Lahir
-                OutlinedTextField(
-                    value = birthDate,
-                    onValueChange = { birthDate = it },
-                    label = { Text(text = stringResource(id = R.string.label_birth_date)) },
-                    shape = RoundedCornerShape(16.dp),
-                    singleLine = true,
-                    trailingIcon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_calendar),
-                            contentDescription = stringResource(id = R.string.content_desc_calendar),
-                            tint = colorResource(id = R.color.text_primary)
-                        )
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                // Input Experience (Dropdown Menu)
-                Box(modifier = Modifier.fillMaxWidth()) {
+                // Baris Tanggal Lahir & Experience
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    // Input Tanggal Lahir
                     OutlinedTextField(
-                        value = experience,
-                        onValueChange = {},
-                        readOnly = true,
-                        label = { Text(text = stringResource(id = R.string.label_experience)) },
+                        value = birthDate,
+                        onValueChange = { birthDate = it },
+                        label = { Text(text = stringResource(id = R.string.label_birth_date)) },
                         shape = RoundedCornerShape(16.dp),
+                        singleLine = true,
                         trailingIcon = {
-                            IconButton(onClick = { isExpDropdownExpanded = !isExpDropdownExpanded }) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_dropdown),
-                                    contentDescription = stringResource(id = R.string.content_desc_dropdown),
-                                    tint = colorResource(id = R.color.text_primary)
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_calendar),
+                                contentDescription = stringResource(id = R.string.content_desc_calendar),
+                                tint = colorResource(id = R.color.text_primary)
+                            )
+                        },
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    // Input Experience (Dropdown Menu)
+                    Box(modifier = Modifier.weight(1f)) {
+                        OutlinedTextField(
+                            value = experience,
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text(text = stringResource(id = R.string.label_experience)) },
+                            shape = RoundedCornerShape(16.dp),
+                            trailingIcon = {
+                                IconButton(onClick = { isExpDropdownExpanded = !isExpDropdownExpanded }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_dropdown),
+                                        contentDescription = stringResource(id = R.string.content_desc_dropdown),
+                                        tint = colorResource(id = R.color.text_primary)
+                                    )
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                        // Area klik transparan di atas TextField
+                        Box(
+                            modifier = Modifier
+                                .matchParentSize()
+                                .clickable { isExpDropdownExpanded = !isExpDropdownExpanded }
+                        )
+
+                        DropdownMenu(
+                            expanded = isExpDropdownExpanded,
+                            onDismissRequest = { isExpDropdownExpanded = false }
+                        ) {
+                            val options = listOf(
+                                stringResource(id = R.string.exp_beginner),
+                                stringResource(id = R.string.exp_intermediate),
+                                stringResource(id = R.string.exp_advanced)
+                            )
+                            options.forEach { option ->
+                                DropdownMenuItem(
+                                    text = { Text(text = option) },
+                                    onClick = {
+                                        experience = option
+                                        isExpDropdownExpanded = false
+                                    }
                                 )
                             }
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    // Area klik transparan di atas TextField
-                    Box(
-                        modifier = Modifier
-                            .matchParentSize()
-                            .clickable { isExpDropdownExpanded = !isExpDropdownExpanded }
-                    )
-
-                    DropdownMenu(
-                        expanded = isExpDropdownExpanded,
-                        onDismissRequest = { isExpDropdownExpanded = false }
-                    ) {
-                        val options = listOf(
-                            stringResource(id = R.string.exp_beginner),
-                            stringResource(id = R.string.exp_intermediate),
-                            stringResource(id = R.string.exp_advanced)
-                        )
-                        options.forEach { option ->
-                            DropdownMenuItem(
-                                text = { Text(text = option) },
-                                onClick = {
-                                    experience = option
-                                    isExpDropdownExpanded = false
-                                }
-                            )
                         }
                     }
                 }
