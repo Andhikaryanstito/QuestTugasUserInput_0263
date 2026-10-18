@@ -26,4 +26,12 @@
     <color name="bottom_shadow_color">#4D000000</color>
     <color name="bottom_shadow_mid">#18000000</color>
     <color name="checkbox_checked_color">#FF0084FF</color>
+
+    <!-- Result Card Palette -->
+    <color name="result_card_bg">#FF1A1A1A</color>
+    <color name="result_card_border">#FF333333</color>
+    <color name="result_title">#FF0099FF</color>
+    <color name="result_label">#FFAAAAAA</color>
+    <color name="result_value">#FFFFFFFF</color>
+    <color name="result_divider">#FF2A2A2A</color>
 </resources>
