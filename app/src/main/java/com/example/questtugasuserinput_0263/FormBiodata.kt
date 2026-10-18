@@ -1,8 +1,10 @@
 package com.example.questtugasuserinput_0263
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -92,15 +94,29 @@ fun FormBiodata(modifier: Modifier = Modifier) {
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                // Input Nama Depan
-                OutlinedTextField(
-                    value = firstName,
-                    onValueChange = { firstName = it },
-                    label = { Text(text = stringResource(id = R.string.label_first_name)) },
-                    shape = RoundedCornerShape(16.dp),
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth()
-                )
+                // Baris Nama Depan & Nama Belakang
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    OutlinedTextField(
+                        value = firstName,
+                        onValueChange = { firstName = it },
+                        label = { Text(text = stringResource(id = R.string.label_first_name)) },
+                        shape = RoundedCornerShape(16.dp),
+                        singleLine = true,
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    OutlinedTextField(
+                        value = lastName,
+                        onValueChange = { lastName = it },
+                        label = { Text(text = stringResource(id = R.string.label_last_name)) },
+                        shape = RoundedCornerShape(16.dp),
+                        singleLine = true,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
             }
         }
     }
