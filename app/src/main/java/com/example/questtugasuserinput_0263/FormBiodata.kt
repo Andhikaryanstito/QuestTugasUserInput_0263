@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -297,6 +299,33 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                             color = colorResource(id = R.color.text_primary)
                         )
                     }
+                }
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // Tombol Proceed dengan perubahan warna dinamis aktif/disabled
+                Button(
+                    onClick = { /* aksi submit biodata */ },
+                    enabled = isFormValid,
+                    shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorResource(id = R.color.btn_enabled_bg),
+                        disabledContainerColor = colorResource(id = R.color.btn_disabled_bg)
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.btn_proceed),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = if (isFormValid) {
+                            colorResource(id = R.color.btn_enabled_text)
+                        } else {
+                            colorResource(id = R.color.btn_disabled_text)
+                        }
+                    )
                 }
             }
         }
