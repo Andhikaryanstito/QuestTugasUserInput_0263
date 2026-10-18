@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,8 +19,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.questtugasuserinput_0263.ui.theme.QuestTugasUserInput_0263Theme
 
 @Composable
@@ -50,7 +53,13 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                     .padding(horizontal = 24.dp, vertical = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Form komponen akan disusun di sini
+                // Judul Form
+                Text(
+                    text = stringResource(id = R.string.title_form_biodata),
+                    fontSize = 26.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = colorResource(id = R.color.text_title)
+                )
             }
         }
     }
