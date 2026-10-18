@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">QuestTugasUserInput_0263</string>
+    <string name="title_form_biodata">Form Biodata</string>
+    <string name="subtitle_form_biodata">Silahkan isi biodata Anda dibawah ini !!!</string>
+    <string name="content_desc_header">Header background image</string>
 </resources>
