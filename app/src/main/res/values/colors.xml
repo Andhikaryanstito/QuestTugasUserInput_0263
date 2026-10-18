@@ -23,6 +23,7 @@
     <color name="btn_disabled_text">#FFAAAAAA</color>
     <color name="btn_enabled_bg">#FF0084FF</color>
     <color name="btn_enabled_text">#FFFFFFFF</color>
-    <color name="bottom_shadow_color">#26000000</color>
+    <color name="bottom_shadow_color">#4D000000</color>
+    <color name="bottom_shadow_mid">#18000000</color>
     <color name="checkbox_checked_color">#FF0084FF</color>
 </resources>

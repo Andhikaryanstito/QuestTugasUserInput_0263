@@ -373,11 +373,16 @@ fun FormBiodata(modifier: Modifier = Modifier) {
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    // Tombol Proceed dengan perubahan warna dinamis aktif/disabled
+                    // Tombol Proceed dengan perubahan warna dinamis aktif/disabled dan shadow tipis
                     Button(
                         onClick = { /* aksi submit biodata */ },
                         enabled = isFormValid,
                         shape = RoundedCornerShape(12.dp),
+                        elevation = ButtonDefaults.buttonElevation(
+                            defaultElevation = 4.dp,
+                            pressedElevation = 2.dp,
+                            disabledElevation = 0.dp
+                        ),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = colorResource(id = R.color.btn_enabled_bg),
                             disabledContainerColor = colorResource(id = R.color.btn_disabled_bg)
@@ -399,20 +404,29 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                     }
                 }
 
-                // Garis bayangan horizontal tepat di bawah tombol Proceed sesuai contoh
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(8.dp)
-                        .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    colorResource(id = R.color.bottom_shadow_color),
-                                    Color.Transparent
+                // Garis batas horizontal dengan bayangan lebih tegas & tebal sesuai contoh
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(1.dp)
+                            .background(colorResource(id = R.color.divider_line))
+                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(14.dp)
+                            .background(
+                                brush = Brush.verticalGradient(
+                                    colors = listOf(
+                                        colorResource(id = R.color.bottom_shadow_color),
+                                        colorResource(id = R.color.bottom_shadow_mid),
+                                        Color.Transparent
+                                    )
                                 )
                             )
-                        )
-                )
+                    )
+                }
 
                 // Area putih bersih di bagian bawah layar
                 Spacer(
