@@ -13,6 +13,10 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -29,6 +33,18 @@ import com.example.questtugasuserinput_0263.ui.theme.QuestTugasUserInput_0263The
 
 @Composable
 fun FormBiodata(modifier: Modifier = Modifier) {
+    // Variabel state untuk menampung input pengguna
+    var firstName by remember { mutableStateOf("") }
+    var lastName by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var birthDate by remember { mutableStateOf("") }
+    var experience by remember { mutableStateOf("") }
+    var isExpDropdownExpanded by remember { mutableStateOf(false) }
+
+    var isSkillAndroid by remember { mutableStateOf(false) }
+    var isSkillUiUx by remember { mutableStateOf(false) }
+    var isSkillWeb by remember { mutableStateOf(false) }
+
     Box(modifier = modifier.fillMaxSize()) {
         // Layer 1: Wallpaper latar belakang neon spider
         HeaderSection()
