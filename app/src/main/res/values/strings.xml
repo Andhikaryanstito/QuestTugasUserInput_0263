@@ -3,4 +3,27 @@
     <string name="title_form_biodata">Form Biodata</string>
     <string name="subtitle_form_biodata">Silahkan isi biodata Anda dibawah ini !!!</string>
     <string name="content_desc_header">Header background image</string>
+
+    <!-- Field Labels -->
+    <string name="label_first_name">Nama Depan</string>
+    <string name="label_last_name">Nama Belakang</string>
+    <string name="label_email">Email</string>
+    <string name="label_birth_date">Tgl Lahir</string>
+    <string name="label_experience">Experience</string>
+
+    <!-- Skills -->
+    <string name="title_skills">Pilih Skill Anda :</string>
+    <string name="skill_android">Android</string>
+    <string name="skill_ui_ux">UI/UX</string>
+    <string name="skill_web">Web</string>
+
+    <!-- Button & Icons -->
+    <string name="btn_proceed">Proceed</string>
+    <string name="content_desc_calendar">Icon Kalender</string>
+    <string name="content_desc_dropdown">Icon Dropdown</string>
+
+    <!-- Experience Options -->
+    <string name="exp_beginner">Pemula (&lt; 1 thn)</string>
+    <string name="exp_intermediate">Menengah (1 - 3 thn)</string>
+    <string name="exp_advanced">Mahir (&gt; 3 thn)</string>
 </resources>
