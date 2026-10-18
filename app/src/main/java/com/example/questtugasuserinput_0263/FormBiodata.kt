@@ -2,12 +2,20 @@ package com.example.questtugasuserinput_0263
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,6 +27,32 @@ fun FormBiodata(modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize()) {
         // Layer 1: Wallpaper latar belakang neon spider
         HeaderSection()
+
+        // Layer 2: Kontainer Box/Card putih mengapung di atas Scaffold
+        Card(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 220.dp)
+                .shadow(
+                    elevation = 12.dp,
+                    shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
+                    clip = false
+                ),
+            shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = colorResource(id = R.color.card_bg)
+            ),
+            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 24.dp, vertical = 24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                // Form komponen akan disusun di sini
+            }
+        }
     }
 }
 
