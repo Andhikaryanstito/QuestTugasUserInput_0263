@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- App Theme Palette -->
+    <color name="primary_neon_blue">#FF0099FF</color>
+    <color name="neon_blue_dark">#FF0066CC</color>
+    <color name="text_title">#FF0A66C2</color>
+    <color name="text_subtitle">#FF757575</color>
+    <color name="text_primary">#FF212121</color>
+    <color name="card_bg">#FFFFFFFF</color>
+    <color name="input_border">#FF79747E</color>
+    <color name="divider_line">#FFE0E0E0</color>
 </resources>
