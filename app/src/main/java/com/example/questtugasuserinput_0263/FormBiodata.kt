@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -130,6 +131,25 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                     shape = RoundedCornerShape(16.dp),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Input Tanggal Lahir
+                OutlinedTextField(
+                    value = birthDate,
+                    onValueChange = { birthDate = it },
+                    label = { Text(text = stringResource(id = R.string.label_birth_date)) },
+                    shape = RoundedCornerShape(16.dp),
+                    singleLine = true,
+                    trailingIcon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_calendar),
+                            contentDescription = stringResource(id = R.string.content_desc_calendar),
+                            tint = colorResource(id = R.color.text_primary)
+                        )
+                    },
                     modifier = Modifier.fillMaxWidth()
                 )
             }
