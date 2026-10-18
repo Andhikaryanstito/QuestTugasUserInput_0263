@@ -1,7 +1,7 @@
 package com.example.questtugasuserinput_0263
 
+import android.app.DatePickerDialog
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,7 +27,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,9 +36,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -50,9 +48,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.questtugasuserinput_0263.ui.theme.QuestTugasUserInput_0263Theme
+import java.util.Calendar
 
 @Composable
 fun FormBiodata(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+
     // Variabel state untuk menampung input pengguna
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
@@ -64,6 +65,20 @@ fun FormBiodata(modifier: Modifier = Modifier) {
     var isSkillAndroid by remember { mutableStateOf(false) }
     var isSkillUiUx by remember { mutableStateOf(false) }
     var isSkillWeb by remember { mutableStateOf(false) }
+
+    // Dialog Pemilih Tanggal Lahir (DatePickerDialog)
+    val calendar = remember { Calendar.getInstance() }
+    val datePickerDialog = remember {
+        DatePickerDialog(
+            context,
+            { _, year, month, dayOfMonth ->
+                birthDate = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+    }
 
     // Scroll state untuk memastikan form responsif di semua ukuran layar
     val scrollState = rememberScrollState()
@@ -80,13 +95,13 @@ fun FormBiodata(modifier: Modifier = Modifier) {
         // Layer 1: Wallpaper latar belakang neon spider
         HeaderSection()
 
-        // Layer 2: Kontainer Box/Card putih mengapung di atas Scaffold
+        // Layer 2: Kontainer Box/Card putih mengapung di atas Scaffold dengan bayangan halus
         Card(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 220.dp)
                 .shadow(
-                    elevation = 12.dp,
+                    elevation = 16.dp,
                     shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
                     clip = false
                 ),
@@ -131,7 +146,12 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                     OutlinedTextField(
                         value = firstName,
                         onValueChange = { firstName = it },
-                        label = { Text(text = stringResource(id = R.string.label_first_name)) },
+                        placeholder = {
+                            Text(
+                                text = stringResource(id = R.string.label_first_name),
+                                color = colorResource(id = R.color.text_subtitle)
+                            )
+                        },
                         shape = RoundedCornerShape(16.dp),
                         singleLine = true,
                         modifier = Modifier.weight(1f)
@@ -140,7 +160,12 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                     OutlinedTextField(
                         value = lastName,
                         onValueChange = { lastName = it },
-                        label = { Text(text = stringResource(id = R.string.label_last_name)) },
+                        placeholder = {
+                            Text(
+                                text = stringResource(id = R.string.label_last_name),
+                                color = colorResource(id = R.color.text_subtitle)
+                            )
+                        },
                         shape = RoundedCornerShape(16.dp),
                         singleLine = true,
                         modifier = Modifier.weight(1f)
@@ -153,7 +178,12 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                 OutlinedTextField(
                     value = email,
                     onValueChange = { email = it },
-                    label = { Text(text = stringResource(id = R.string.label_email)) },
+                    placeholder = {
+                        Text(
+                            text = stringResource(id = R.string.label_email),
+                            color = colorResource(id = R.color.text_subtitle)
+                        )
+                    },
                     shape = RoundedCornerShape(16.dp),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -167,22 +197,39 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    // Input Tanggal Lahir
-                    OutlinedTextField(
-                        value = birthDate,
-                        onValueChange = { birthDate = it },
-                        label = { Text(text = stringResource(id = R.string.label_birth_date)) },
-                        shape = RoundedCornerShape(16.dp),
-                        singleLine = true,
-                        trailingIcon = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_calendar),
-                                contentDescription = stringResource(id = R.string.content_desc_calendar),
-                                tint = colorResource(id = R.color.text_primary)
-                            )
-                        },
-                        modifier = Modifier.weight(1f)
-                    )
+                    // Input Tanggal Lahir (Dapat diklik untuk membuka DatePickerDialog)
+                    Box(modifier = Modifier.weight(1f)) {
+                        OutlinedTextField(
+                            value = birthDate,
+                            onValueChange = {},
+                            readOnly = true,
+                            placeholder = {
+                                Text(
+                                    text = stringResource(id = R.string.label_birth_date),
+                                    color = colorResource(id = R.color.text_subtitle)
+                                )
+                            },
+                            shape = RoundedCornerShape(16.dp),
+                            singleLine = true,
+                            trailingIcon = {
+                                IconButton(onClick = { datePickerDialog.show() }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_calendar),
+                                        contentDescription = stringResource(id = R.string.content_desc_calendar),
+                                        tint = colorResource(id = R.color.text_primary)
+                                    )
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                        // Area klik transparan di atas TextField Tanggal Lahir
+                        Box(
+                            modifier = Modifier
+                                .matchParentSize()
+                                .clickable { datePickerDialog.show() }
+                        )
+                    }
 
                     // Input Experience (Dropdown Menu)
                     Box(modifier = Modifier.weight(1f)) {
@@ -190,7 +237,12 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                             value = experience,
                             onValueChange = {},
                             readOnly = true,
-                            label = { Text(text = stringResource(id = R.string.label_experience)) },
+                            placeholder = {
+                                Text(
+                                    text = stringResource(id = R.string.label_experience),
+                                    color = colorResource(id = R.color.text_subtitle)
+                                )
+                            },
                             shape = RoundedCornerShape(16.dp),
                             trailingIcon = {
                                 IconButton(onClick = { isExpDropdownExpanded = !isExpDropdownExpanded }) {
@@ -204,7 +256,7 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                             modifier = Modifier.fillMaxWidth()
                         )
 
-                        // Area klik transparan di atas TextField
+                        // Area klik transparan di atas TextField Experience
                         Box(
                             modifier = Modifier
                                 .matchParentSize()
@@ -337,24 +389,7 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                     )
                 }
 
-                Spacer(modifier = Modifier.height(28.dp))
-
-                // Garis batas horizontal dengan bayangan halus di bagian bawah
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(6.dp)
-                        .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    colorResource(id = R.color.bottom_shadow_color),
-                                    Color.Transparent
-                                )
-                            )
-                        )
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(24.dp))
             }
         }
     }
