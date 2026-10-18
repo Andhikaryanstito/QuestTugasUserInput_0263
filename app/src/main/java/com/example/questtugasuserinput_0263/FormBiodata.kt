@@ -15,6 +15,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -222,7 +224,64 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(4.dp))
+
+                // Checkbox Android
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.clickable { isSkillAndroid = !isSkillAndroid }
+                ) {
+                    Checkbox(
+                        checked = isSkillAndroid,
+                        onCheckedChange = { isSkillAndroid = it },
+                        colors = CheckboxDefaults.colors(
+                            checkedColor = colorResource(id = R.color.checkbox_checked_color)
+                        )
+                    )
+                    Text(
+                        text = stringResource(id = R.string.skill_android),
+                        fontSize = 13.sp,
+                        color = colorResource(id = R.color.text_primary)
+                    )
+                }
+
+                // Checkbox UI/UX
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.clickable { isSkillUiUx = !isSkillUiUx }
+                ) {
+                    Checkbox(
+                        checked = isSkillUiUx,
+                        onCheckedChange = { isSkillUiUx = it },
+                        colors = CheckboxDefaults.colors(
+                            checkedColor = colorResource(id = R.color.checkbox_checked_color)
+                        )
+                    )
+                    Text(
+                        text = stringResource(id = R.string.skill_ui_ux),
+                        fontSize = 13.sp,
+                        color = colorResource(id = R.color.text_primary)
+                    )
+                }
+
+                // Checkbox Web
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.clickable { isSkillWeb = !isSkillWeb }
+                ) {
+                    Checkbox(
+                        checked = isSkillWeb,
+                        onCheckedChange = { isSkillWeb = it },
+                        colors = CheckboxDefaults.colors(
+                            checkedColor = colorResource(id = R.color.checkbox_checked_color)
+                        )
+                    )
+                    Text(
+                        text = stringResource(id = R.string.skill_web),
+                        fontSize = 13.sp,
+                        color = colorResource(id = R.color.text_primary)
+                    )
+                }
             }
         }
     }
