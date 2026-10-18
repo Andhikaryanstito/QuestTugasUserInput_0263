@@ -1,6 +1,10 @@
 package com.example.questtugasuserinput_0263
 
 import android.app.DatePickerDialog
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -34,7 +39,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -69,6 +76,21 @@ fun FormBiodata(modifier: Modifier = Modifier) {
     var isSkillAndroid by remember { mutableStateOf(false) }
     var isSkillUiUx by remember { mutableStateOf(false) }
     var isSkillWeb by remember { mutableStateOf(false) }
+
+    val coroutineScope = rememberCoroutineScope()
+
+    // Variabel state untuk menampung data hasil input yang disubmit
+    var isSubmitted by remember { mutableStateOf(false) }
+    var submittedFullName by remember { mutableStateOf("") }
+    var submittedEmail by remember { mutableStateOf("") }
+    var submittedBirthDate by remember { mutableStateOf("") }
+    var submittedExperience by remember { mutableStateOf("") }
+    var submittedSkills by remember { mutableStateOf("") }
+
+    // Mengambil resource string label skill untuk menghindari hardcoding
+    val skillAndroidLabel = stringResource(id = R.string.skill_android)
+    val skillUiUxLabel = stringResource(id = R.string.skill_ui_ux)
+    val skillWebLabel = stringResource(id = R.string.skill_web)
 
     // Dialog Pemilih Tanggal Lahir (DatePickerDialog)
     val calendar = remember { Calendar.getInstance() }
@@ -375,7 +397,24 @@ fun FormBiodata(modifier: Modifier = Modifier) {
 
                     // Tombol Proceed dengan perubahan warna dinamis aktif/disabled dan shadow tipis
                     Button(
-                        onClick = { /* aksi submit biodata */ },
+                        onClick = {
+                            submittedFullName = "$firstName $lastName"
+                            submittedEmail = email
+                            submittedBirthDate = birthDate
+                            submittedExperience = experience
+
+                            val selectedSkills = buildList {
+                                if (isSkillAndroid) add(skillAndroidLabel)
+                                if (isSkillUiUx) add(skillUiUxLabel)
+                                if (isSkillWeb) add(skillWebLabel)
+                            }.joinToString(", ")
+                            submittedSkills = selectedSkills
+
+                            isSubmitted = true
+                            coroutineScope.launch {
+                                scrollState.animateScrollTo(scrollState.maxValue)
+                            }
+                        },
                         enabled = isFormValid,
                         shape = RoundedCornerShape(12.dp),
                         elevation = ButtonDefaults.buttonElevation(
@@ -401,6 +440,71 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                                 colorResource(id = R.color.btn_disabled_text)
                             }
                         )
+                    }
+
+                    // Kotak hasil inputan warna hitam di bawah tombol Proceed
+                    AnimatedVisibility(
+                        visible = isSubmitted,
+                        enter = fadeIn() + expandVertically()
+                    ) {
+                        Column(modifier = Modifier.fillMaxWidth()) {
+                            Spacer(modifier = Modifier.height(20.dp))
+
+                            Card(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(16.dp),
+                                border = BorderStroke(1.dp, colorResource(id = R.color.result_card_border)),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = colorResource(id = R.color.result_card_bg)
+                                ),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(18.dp)
+                                ) {
+                                    Text(
+                                        text = stringResource(id = R.string.result_title),
+                                        fontSize = 17.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = colorResource(id = R.color.result_title)
+                                    )
+
+                                    Spacer(modifier = Modifier.height(10.dp))
+
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(1.dp)
+                                            .background(colorResource(id = R.color.result_divider))
+                                    )
+
+                                    Spacer(modifier = Modifier.height(12.dp))
+
+                                    ResultRowItem(
+                                        label = stringResource(id = R.string.result_label_name),
+                                        value = submittedFullName
+                                    )
+                                    ResultRowItem(
+                                        label = stringResource(id = R.string.result_label_email),
+                                        value = submittedEmail
+                                    )
+                                    ResultRowItem(
+                                        label = stringResource(id = R.string.result_label_birth_date),
+                                        value = submittedBirthDate
+                                    )
+                                    ResultRowItem(
+                                        label = stringResource(id = R.string.result_label_experience),
+                                        value = submittedExperience
+                                    )
+                                    ResultRowItem(
+                                        label = stringResource(id = R.string.result_label_skills),
+                                        value = submittedSkills
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -450,6 +554,31 @@ fun HeaderSection(modifier: Modifier = Modifier) {
             .height(280.dp),
         contentScale = ContentScale.Crop
     )
+}
+
+@Composable
+fun ResultRowItem(label: String, value: String, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        verticalAlignment = Alignment.Top
+    ) {
+        Text(
+            text = label,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Medium,
+            color = colorResource(id = R.color.result_label),
+            modifier = Modifier.width(96.dp)
+        )
+        Text(
+            text = value,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = colorResource(id = R.color.result_value),
+            modifier = Modifier.weight(1f)
+        )
+    }
 }
 
 @Preview(showBackground = true)
