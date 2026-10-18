@@ -125,7 +125,7 @@ fun FormBiodata(modifier: Modifier = Modifier) {
         Card(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 220.dp)
+                .padding(top = 160.dp)
                 .shadow(
                     elevation = 16.dp,
                     shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
@@ -146,28 +146,28 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 24.dp),
+                        .padding(horizontal = 20.dp, vertical = 12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     // Judul Form
                     Text(
                         text = stringResource(id = R.string.title_form_biodata),
-                        fontSize = 26.sp,
+                        fontSize = 22.sp,
                         fontWeight = FontWeight.Bold,
                         color = colorResource(id = R.color.text_title)
                     )
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(4.dp))
 
                     // Subtitle / Panduan Form
                     Text(
                         text = stringResource(id = R.string.subtitle_form_biodata),
-                        fontSize = 13.sp,
+                        fontSize = 12.sp,
                         color = colorResource(id = R.color.text_subtitle),
                         textAlign = TextAlign.Center
                     )
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     // Baris Nama Depan & Nama Belakang
                     Row(
@@ -203,7 +203,7 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
 
                     // Input Email
                     OutlinedTextField(
@@ -221,7 +221,7 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
 
                     // Baris Tanggal Lahir & Experience
                     Row(
@@ -316,18 +316,18 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(18.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     // Judul Bagian Skill
                     Text(
                         text = stringResource(id = R.string.title_skills),
-                        fontSize = 15.sp,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = colorResource(id = R.color.text_primary),
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(2.dp))
 
                     // Baris Pilihan Checkbox Skill
                     Row(
@@ -393,7 +393,7 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
 
                     // Tombol Proceed dengan perubahan warna dinamis aktif/disabled dan shadow tipis
                     Button(
@@ -428,11 +428,11 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                         ),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(50.dp)
+                            .height(44.dp)
                     ) {
                         Text(
                             text = stringResource(id = R.string.btn_proceed),
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = if (isFormValid) {
                                 colorResource(id = R.color.btn_enabled_text)
@@ -448,11 +448,11 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                         enter = fadeIn() + expandVertically()
                     ) {
                         Column(modifier = Modifier.fillMaxWidth()) {
-                            Spacer(modifier = Modifier.height(20.dp))
+                            Spacer(modifier = Modifier.height(10.dp))
 
                             Card(
                                 modifier = Modifier.fillMaxWidth(),
-                                shape = RoundedCornerShape(16.dp),
+                                shape = RoundedCornerShape(14.dp),
                                 border = BorderStroke(1.dp, colorResource(id = R.color.result_card_border)),
                                 colors = CardDefaults.cardColors(
                                     containerColor = colorResource(id = R.color.result_card_bg)
@@ -462,16 +462,16 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                                 Column(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(18.dp)
+                                        .padding(14.dp)
                                 ) {
                                     Text(
                                         text = stringResource(id = R.string.result_title),
-                                        fontSize = 17.sp,
+                                        fontSize = 15.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = colorResource(id = R.color.result_title)
                                     )
 
-                                    Spacer(modifier = Modifier.height(10.dp))
+                                    Spacer(modifier = Modifier.height(6.dp))
 
                                     Box(
                                         modifier = Modifier
@@ -480,7 +480,7 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                                             .background(colorResource(id = R.color.result_divider))
                                     )
 
-                                    Spacer(modifier = Modifier.height(12.dp))
+                                    Spacer(modifier = Modifier.height(8.dp))
 
                                     ResultRowItem(
                                         label = stringResource(id = R.string.result_label_name),
@@ -519,7 +519,7 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(14.dp)
+                            .height(8.dp)
                             .background(
                                 brush = Brush.verticalGradient(
                                     colors = listOf(
@@ -536,7 +536,7 @@ fun FormBiodata(modifier: Modifier = Modifier) {
                 Spacer(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(60.dp)
+                        .height(16.dp)
                         .navigationBarsPadding()
                 )
             }
@@ -551,7 +551,7 @@ fun HeaderSection(modifier: Modifier = Modifier) {
         contentDescription = stringResource(id = R.string.content_desc_header),
         modifier = modifier
             .fillMaxWidth()
-            .height(280.dp),
+            .height(210.dp),
         contentScale = ContentScale.Crop
     )
 }
@@ -561,19 +561,19 @@ fun ResultRowItem(label: String, value: String, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 2.dp),
         verticalAlignment = Alignment.Top
     ) {
         Text(
             text = label,
-            fontSize = 13.sp,
+            fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
             color = colorResource(id = R.color.result_label),
-            modifier = Modifier.width(96.dp)
+            modifier = Modifier.width(90.dp)
         )
         Text(
             text = value,
-            fontSize = 13.sp,
+            fontSize = 12.sp,
             fontWeight = FontWeight.SemiBold,
             color = colorResource(id = R.color.result_value),
             modifier = Modifier.weight(1f)
