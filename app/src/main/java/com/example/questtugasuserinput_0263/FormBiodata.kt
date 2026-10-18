@@ -58,6 +58,14 @@ fun FormBiodata(modifier: Modifier = Modifier) {
     var isSkillUiUx by remember { mutableStateOf(false) }
     var isSkillWeb by remember { mutableStateOf(false) }
 
+    // Constraint validasi kelengkapan data form
+    val isFormValid = firstName.isNotBlank() &&
+            lastName.isNotBlank() &&
+            email.isNotBlank() &&
+            birthDate.isNotBlank() &&
+            experience.isNotBlank() &&
+            (isSkillAndroid || isSkillUiUx || isSkillWeb)
+
     Box(modifier = modifier.fillMaxSize()) {
         // Layer 1: Wallpaper latar belakang neon spider
         HeaderSection()
