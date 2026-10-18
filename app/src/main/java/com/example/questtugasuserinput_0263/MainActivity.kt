@@ -5,9 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import com.example.questtugasuserinput_0263.ui.theme.QuestTugasUserInput_0263Theme
 
 class MainActivity : ComponentActivity() {
@@ -16,10 +16,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             QuestTugasUserInput_0263Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    FormBiodata(
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    containerColor = colorResource(id = R.color.card_bg)
+                ) { _ ->
+                    FormBiodata(modifier = Modifier.fillMaxSize())
                 }
             }
         }

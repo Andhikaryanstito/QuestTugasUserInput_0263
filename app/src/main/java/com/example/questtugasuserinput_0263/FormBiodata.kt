@@ -2,6 +2,7 @@ package com.example.questtugasuserinput_0263
 
 import android.app.DatePickerDialog
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,6 +38,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -95,7 +99,7 @@ fun FormBiodata(modifier: Modifier = Modifier) {
         // Layer 1: Wallpaper latar belakang neon spider
         HeaderSection()
 
-        // Layer 2: Kontainer Box/Card putih mengapung di atas Scaffold dengan bayangan halus
+        // Layer 2: Kontainer Box/Card putih mengapung di atas Scaffold
         Card(
             modifier = Modifier
                 .fillMaxSize()
@@ -114,282 +118,309 @@ fun FormBiodata(modifier: Modifier = Modifier) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(scrollState)
-                    .padding(horizontal = 24.dp, vertical = 24.dp),
+                    .verticalScroll(scrollState),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Judul Form
-                Text(
-                    text = stringResource(id = R.string.title_form_biodata),
-                    fontSize = 26.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = colorResource(id = R.color.text_title)
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                // Subtitle / Panduan Form
-                Text(
-                    text = stringResource(id = R.string.subtitle_form_biodata),
-                    fontSize = 13.sp,
-                    color = colorResource(id = R.color.text_subtitle),
-                    textAlign = TextAlign.Center
-                )
-
-                Spacer(modifier = Modifier.height(20.dp))
-
-                // Baris Nama Depan & Nama Belakang
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp, vertical = 24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    OutlinedTextField(
-                        value = firstName,
-                        onValueChange = { firstName = it },
-                        placeholder = {
-                            Text(
-                                text = stringResource(id = R.string.label_first_name),
-                                color = colorResource(id = R.color.text_subtitle)
-                            )
-                        },
-                        shape = RoundedCornerShape(16.dp),
-                        singleLine = true,
-                        modifier = Modifier.weight(1f)
+                    // Judul Form
+                    Text(
+                        text = stringResource(id = R.string.title_form_biodata),
+                        fontSize = 26.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = colorResource(id = R.color.text_title)
                     )
 
-                    OutlinedTextField(
-                        value = lastName,
-                        onValueChange = { lastName = it },
-                        placeholder = {
-                            Text(
-                                text = stringResource(id = R.string.label_last_name),
-                                color = colorResource(id = R.color.text_subtitle)
-                            )
-                        },
-                        shape = RoundedCornerShape(16.dp),
-                        singleLine = true,
-                        modifier = Modifier.weight(1f)
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    // Subtitle / Panduan Form
+                    Text(
+                        text = stringResource(id = R.string.subtitle_form_biodata),
+                        fontSize = 13.sp,
+                        color = colorResource(id = R.color.text_subtitle),
+                        textAlign = TextAlign.Center
                     )
-                }
 
-                Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
-                // Input Email
-                OutlinedTextField(
-                    value = email,
-                    onValueChange = { email = it },
-                    placeholder = {
-                        Text(
-                            text = stringResource(id = R.string.label_email),
-                            color = colorResource(id = R.color.text_subtitle)
-                        )
-                    },
-                    shape = RoundedCornerShape(16.dp),
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                // Baris Tanggal Lahir & Experience
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    // Input Tanggal Lahir (Dapat diklik untuk membuka DatePickerDialog)
-                    Box(modifier = Modifier.weight(1f)) {
+                    // Baris Nama Depan & Nama Belakang
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
                         OutlinedTextField(
-                            value = birthDate,
-                            onValueChange = {},
-                            readOnly = true,
+                            value = firstName,
+                            onValueChange = { firstName = it },
                             placeholder = {
                                 Text(
-                                    text = stringResource(id = R.string.label_birth_date),
+                                    text = stringResource(id = R.string.label_first_name),
                                     color = colorResource(id = R.color.text_subtitle)
                                 )
                             },
                             shape = RoundedCornerShape(16.dp),
                             singleLine = true,
-                            trailingIcon = {
-                                IconButton(onClick = { datePickerDialog.show() }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_calendar),
-                                        contentDescription = stringResource(id = R.string.content_desc_calendar),
-                                        tint = colorResource(id = R.color.text_primary)
-                                    )
-                                }
-                            },
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.weight(1f)
                         )
 
-                        // Area klik transparan di atas TextField Tanggal Lahir
-                        Box(
-                            modifier = Modifier
-                                .matchParentSize()
-                                .clickable { datePickerDialog.show() }
-                        )
-                    }
-
-                    // Input Experience (Dropdown Menu)
-                    Box(modifier = Modifier.weight(1f)) {
                         OutlinedTextField(
-                            value = experience,
-                            onValueChange = {},
-                            readOnly = true,
+                            value = lastName,
+                            onValueChange = { lastName = it },
                             placeholder = {
                                 Text(
-                                    text = stringResource(id = R.string.label_experience),
+                                    text = stringResource(id = R.string.label_last_name),
                                     color = colorResource(id = R.color.text_subtitle)
                                 )
                             },
                             shape = RoundedCornerShape(16.dp),
-                            trailingIcon = {
-                                IconButton(onClick = { isExpDropdownExpanded = !isExpDropdownExpanded }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_dropdown),
-                                        contentDescription = stringResource(id = R.string.content_desc_dropdown),
-                                        tint = colorResource(id = R.color.text_primary)
+                            singleLine = true,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    // Input Email
+                    OutlinedTextField(
+                        value = email,
+                        onValueChange = { email = it },
+                        placeholder = {
+                            Text(
+                                text = stringResource(id = R.string.label_email),
+                                color = colorResource(id = R.color.text_subtitle)
+                            )
+                        },
+                        shape = RoundedCornerShape(16.dp),
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    // Baris Tanggal Lahir & Experience
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        // Input Tanggal Lahir (Dapat diklik untuk membuka DatePickerDialog)
+                        Box(modifier = Modifier.weight(1f)) {
+                            OutlinedTextField(
+                                value = birthDate,
+                                onValueChange = {},
+                                readOnly = true,
+                                placeholder = {
+                                    Text(
+                                        text = stringResource(id = R.string.label_birth_date),
+                                        color = colorResource(id = R.color.text_subtitle)
+                                    )
+                                },
+                                shape = RoundedCornerShape(16.dp),
+                                singleLine = true,
+                                trailingIcon = {
+                                    IconButton(onClick = { datePickerDialog.show() }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_calendar),
+                                            contentDescription = stringResource(id = R.string.content_desc_calendar),
+                                            tint = colorResource(id = R.color.text_primary)
+                                        )
+                                    }
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+
+                            // Area klik transparan di atas TextField Tanggal Lahir
+                            Box(
+                                modifier = Modifier
+                                    .matchParentSize()
+                                    .clickable { datePickerDialog.show() }
+                            )
+                        }
+
+                        // Input Experience (Dropdown Menu)
+                        Box(modifier = Modifier.weight(1f)) {
+                            OutlinedTextField(
+                                value = experience,
+                                onValueChange = {},
+                                readOnly = true,
+                                placeholder = {
+                                    Text(
+                                        text = stringResource(id = R.string.label_experience),
+                                        color = colorResource(id = R.color.text_subtitle)
+                                    )
+                                },
+                                shape = RoundedCornerShape(16.dp),
+                                trailingIcon = {
+                                    IconButton(onClick = { isExpDropdownExpanded = !isExpDropdownExpanded }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_dropdown),
+                                            contentDescription = stringResource(id = R.string.content_desc_dropdown),
+                                            tint = colorResource(id = R.color.text_primary)
+                                        )
+                                    }
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+
+                            // Area klik transparan di atas TextField Experience
+                            Box(
+                                modifier = Modifier
+                                    .matchParentSize()
+                                    .clickable { isExpDropdownExpanded = !isExpDropdownExpanded }
+                            )
+
+                            DropdownMenu(
+                                expanded = isExpDropdownExpanded,
+                                onDismissRequest = { isExpDropdownExpanded = false }
+                            ) {
+                                val options = listOf(
+                                    stringResource(id = R.string.exp_beginner),
+                                    stringResource(id = R.string.exp_intermediate),
+                                    stringResource(id = R.string.exp_advanced)
+                                )
+                                options.forEach { option ->
+                                    DropdownMenuItem(
+                                        text = { Text(text = option) },
+                                        onClick = {
+                                            experience = option
+                                            isExpDropdownExpanded = false
+                                        }
                                     )
                                 }
-                            },
-                            modifier = Modifier.fillMaxWidth()
-                        )
-
-                        // Area klik transparan di atas TextField Experience
-                        Box(
-                            modifier = Modifier
-                                .matchParentSize()
-                                .clickable { isExpDropdownExpanded = !isExpDropdownExpanded }
-                        )
-
-                        DropdownMenu(
-                            expanded = isExpDropdownExpanded,
-                            onDismissRequest = { isExpDropdownExpanded = false }
-                        ) {
-                            val options = listOf(
-                                stringResource(id = R.string.exp_beginner),
-                                stringResource(id = R.string.exp_intermediate),
-                                stringResource(id = R.string.exp_advanced)
-                            )
-                            options.forEach { option ->
-                                DropdownMenuItem(
-                                    text = { Text(text = option) },
-                                    onClick = {
-                                        experience = option
-                                        isExpDropdownExpanded = false
-                                    }
-                                )
                             }
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(18.dp))
+
+                    // Judul Bagian Skill
+                    Text(
+                        text = stringResource(id = R.string.title_skills),
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = colorResource(id = R.color.text_primary),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
+                    // Baris Pilihan Checkbox Skill
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Checkbox Android
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.clickable { isSkillAndroid = !isSkillAndroid }
+                        ) {
+                            Checkbox(
+                                checked = isSkillAndroid,
+                                onCheckedChange = { isSkillAndroid = it },
+                                colors = CheckboxDefaults.colors(
+                                    checkedColor = colorResource(id = R.color.checkbox_checked_color)
+                                )
+                            )
+                            Text(
+                                text = stringResource(id = R.string.skill_android),
+                                fontSize = 13.sp,
+                                color = colorResource(id = R.color.text_primary)
+                            )
+                        }
+
+                        // Checkbox UI/UX
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.clickable { isSkillUiUx = !isSkillUiUx }
+                        ) {
+                            Checkbox(
+                                checked = isSkillUiUx,
+                                onCheckedChange = { isSkillUiUx = it },
+                                colors = CheckboxDefaults.colors(
+                                    checkedColor = colorResource(id = R.color.checkbox_checked_color)
+                                )
+                            )
+                            Text(
+                                text = stringResource(id = R.string.skill_ui_ux),
+                                fontSize = 13.sp,
+                                color = colorResource(id = R.color.text_primary)
+                            )
+                        }
+
+                        // Checkbox Web
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.clickable { isSkillWeb = !isSkillWeb }
+                        ) {
+                            Checkbox(
+                                checked = isSkillWeb,
+                                onCheckedChange = { isSkillWeb = it },
+                                colors = CheckboxDefaults.colors(
+                                    checkedColor = colorResource(id = R.color.checkbox_checked_color)
+                                )
+                            )
+                            Text(
+                                text = stringResource(id = R.string.skill_web),
+                                fontSize = 13.sp,
+                                color = colorResource(id = R.color.text_primary)
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    // Tombol Proceed dengan perubahan warna dinamis aktif/disabled
+                    Button(
+                        onClick = { /* aksi submit biodata */ },
+                        enabled = isFormValid,
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = colorResource(id = R.color.btn_enabled_bg),
+                            disabledContainerColor = colorResource(id = R.color.btn_disabled_bg)
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp)
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.btn_proceed),
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = if (isFormValid) {
+                                colorResource(id = R.color.btn_enabled_text)
+                            } else {
+                                colorResource(id = R.color.btn_disabled_text)
+                            }
+                        )
+                    }
                 }
 
-                Spacer(modifier = Modifier.height(18.dp))
-
-                // Judul Bagian Skill
-                Text(
-                    text = stringResource(id = R.string.title_skills),
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = colorResource(id = R.color.text_primary),
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                // Baris Pilihan Checkbox Skill
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // Checkbox Android
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.clickable { isSkillAndroid = !isSkillAndroid }
-                    ) {
-                        Checkbox(
-                            checked = isSkillAndroid,
-                            onCheckedChange = { isSkillAndroid = it },
-                            colors = CheckboxDefaults.colors(
-                                checkedColor = colorResource(id = R.color.checkbox_checked_color)
-                            )
-                        )
-                        Text(
-                            text = stringResource(id = R.string.skill_android),
-                            fontSize = 13.sp,
-                            color = colorResource(id = R.color.text_primary)
-                        )
-                    }
-
-                    // Checkbox UI/UX
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.clickable { isSkillUiUx = !isSkillUiUx }
-                    ) {
-                        Checkbox(
-                            checked = isSkillUiUx,
-                            onCheckedChange = { isSkillUiUx = it },
-                            colors = CheckboxDefaults.colors(
-                                checkedColor = colorResource(id = R.color.checkbox_checked_color)
-                            )
-                        )
-                        Text(
-                            text = stringResource(id = R.string.skill_ui_ux),
-                            fontSize = 13.sp,
-                            color = colorResource(id = R.color.text_primary)
-                        )
-                    }
-
-                    // Checkbox Web
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.clickable { isSkillWeb = !isSkillWeb }
-                    ) {
-                        Checkbox(
-                            checked = isSkillWeb,
-                            onCheckedChange = { isSkillWeb = it },
-                            colors = CheckboxDefaults.colors(
-                                checkedColor = colorResource(id = R.color.checkbox_checked_color)
-                            )
-                        )
-                        Text(
-                            text = stringResource(id = R.string.skill_web),
-                            fontSize = 13.sp,
-                            color = colorResource(id = R.color.text_primary)
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                // Tombol Proceed dengan perubahan warna dinamis aktif/disabled
-                Button(
-                    onClick = { /* aksi submit biodata */ },
-                    enabled = isFormValid,
-                    shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = colorResource(id = R.color.btn_enabled_bg),
-                        disabledContainerColor = colorResource(id = R.color.btn_disabled_bg)
-                    ),
+                // Garis bayangan horizontal tepat di bawah tombol Proceed sesuai contoh
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(50.dp)
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.btn_proceed),
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = if (isFormValid) {
-                            colorResource(id = R.color.btn_enabled_text)
-                        } else {
-                            colorResource(id = R.color.btn_disabled_text)
-                        }
-                    )
-                }
+                        .height(8.dp)
+                        .background(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    colorResource(id = R.color.bottom_shadow_color),
+                                    Color.Transparent
+                                )
+                            )
+                        )
+                )
 
-                Spacer(modifier = Modifier.height(24.dp))
+                // Area putih bersih di bagian bawah layar
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .navigationBarsPadding()
+                )
             }
         }
     }
