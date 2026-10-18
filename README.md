@@ -25,6 +25,7 @@ Aplikasi ini merupakan implementasi form input biodata pengguna dengan arsitektu
    - **Experience**: Dropdown menu interaktif (`DropdownMenu`) dengan pilihan level pengalaman.
    - **Pilihan Skill**: Pilihan ganda menggunakan `Checkbox` untuk keahlian Android, UI/UX, dan Web.
    - **Tombol Proceed**: Tombol dinamis dengan validasi form otomatis.
+   - **Kotak Hasil Biodata**: Card berwarna gelap (`#FF1A1A1A`) berdesain modern dengan animasi transisi yang muncul di bawah tombol *Proceed* setelah diklik untuk menampilkan rekap data pengguna.
    - **Bottom Divider**: Garis pembatas bawah dengan efek bayangan gradasi halus.
 
 ---
